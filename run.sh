@@ -1,6 +1,6 @@
 #!/usr/local/bin/bash
 
-for i in {1..3}
+for i in {1..2}
 do
     cp src/* reidai0${i}/
     cd reidai0${i}

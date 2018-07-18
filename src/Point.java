@@ -18,6 +18,16 @@ public class Point extends Point2D.Double implements Comparable<Point> {
         return;
     }
 
+    public Point(double[] xy, double goldDensity) {
+        super();
+        assert (xy.length == 2);
+        this.x = xy[0];
+        this.y = xy[1];
+        this.goldDensity = goldDensity;
+
+        return;
+    }
+
     public void moveTo(double x, double y) {
         this.x = this.fixValue(-1e6, 1e6, this.x + x);
         this.y = this.fixValue(-1e6, 1e6, this.y + y);
@@ -55,9 +65,20 @@ public class Point extends Point2D.Double implements Comparable<Point> {
         return x + "," + y + "," + goldDensity;
     }
 
+    /**
+     * 自身が優れている場合は1, 劣っている場合は-1
+     *
+     * @param o
+     * @return
+     */
     @Override
     public int compareTo(Point o) {
         if (this.goldDensity == o.goldDensity) return 0;
         return this.goldDensity > o.goldDensity ? 1 : -1;
+    }
+
+    @Override
+    public Object clone() {
+        return super.clone();
     }
 }

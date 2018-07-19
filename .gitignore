@@ -29,3 +29,5 @@ hs_err_pid*
 *.xlsx
 *.csv
 *.png
+a.out
+*.txt

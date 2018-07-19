@@ -9,22 +9,22 @@ public class Solver extends Object {
     private void run() {
         RandomWalk aWalker = new LevyWalker();
         Point aPoint = aWalker.getPoint();
-        System.err.println(aPoint);
+        // System.err.println(aPoint);
         this.changeMax(aPoint.toArray(), aPoint.getGoldDensity());
-        //PriorityQueue<Point> aQueue = new PriorityQueue<>(11000, Collections.reverseOrder());
+        // PriorityQueue<Point> aQueue = new PriorityQueue<>(11000, Collections.reverseOrder());
 
         for (int i = 1; i < Gold.EvalMax; i++) {
             aWalker.walk();
             this.changeMax(aWalker.getPoint().toArray(), aWalker.getPoint().getGoldDensity());
 
             if (aWalker.isImproved()) {
-                System.out.println("Yes, before = " + aWalker.getPoint());
+                // System.out.println("Yes, before = " + aWalker.getPoint());
                 HillClimber aClimber = new HillClimber((Point) aWalker.getPoint().clone());
                 int limit = i + 200 >= Gold.EvalMax - 1 ? Gold.EvalMax - i - 1 : 200;
                 Point topOfTheMountain = aClimber.climb(limit);
                 this.changeMax(topOfTheMountain.toArray(), topOfTheMountain.getGoldDensity());
                 i += limit;
-                System.out.println("      After = " + topOfTheMountain);
+                // System.out.println("      After = " + topOfTheMountain);
             }
             //aPoint = new Point(MIN + (MAX - MIN) * Math.random(), MIN + (MAX - MIN) * Math.random());
             // System.err.println(aPoint);
@@ -59,16 +59,22 @@ public class Solver extends Object {
 
     public static void answer() {
         Solver solver = new Solver();
-        solver.run();
-        // solver.test();
+        // solver.run();
+        solver.test();
         Gold.submit(bestPoint);
 
         return;
     }
 
     private void test() {
-        HillClimber aClimber = new HillClimber(new Point());
-        Point res = aClimber.climb(9999);
-        this.changeMax(res.toArray(), res.getGoldDensity());
+
+        for (int i = 0; i < 10000; i++) {
+            double[] xy = {Math.random() * 1e6 * 2 - 1e6, Math.random() * 1e6 * 2 - 1e6};
+            double result = Gold.evaluate(xy);
+            if (best < result) {
+                best = result;
+                bestPoint = xy;
+            }
+        }
     }
 }

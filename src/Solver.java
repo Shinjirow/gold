@@ -59,8 +59,8 @@ public class Solver extends Object {
 
     public static void answer() {
         Solver solver = new Solver();
-        // solver.run();
-        solver.test();
+        solver.run();
+        // solver.test();
         Gold.submit(bestPoint);
 
         return;
